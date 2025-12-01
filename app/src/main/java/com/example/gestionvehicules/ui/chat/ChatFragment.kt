@@ -14,11 +14,8 @@ import com.example.gestionvehicules.databinding.FragmentChatBinding
 import com.example.gestionvehicules.ui.adapters.ChatAdapter
 import com.example.gestionvehicules.ui.adapters.ChatUserAdapter
 import com.example.gestionvehicules.data.api.SessionManager
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class ChatFragment : Fragment() {
     
     private var _binding: FragmentChatBinding? = null
@@ -26,8 +23,7 @@ class ChatFragment : Fragment() {
     
     private val viewModel: ChatViewModel by viewModels()
     
-    @Inject
-    lateinit var sessionManager: SessionManager
+    private lateinit var sessionManager: SessionManager
     
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var chatUserAdapter: ChatUserAdapter
@@ -43,6 +39,9 @@ class ChatFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        // Initialize SessionManager
+        sessionManager = SessionManager(requireContext())
         
         setupRecyclerViews()
         setupObservers()
