@@ -339,7 +339,7 @@ class DriverHomeEnhancedActivity : AppCompatActivity() {
         builder.setPositiveButton("Terminer") { _, _ ->
             val kmText = input.text.toString()
             val kilometrage = if (kmText.isNotEmpty()) kmText.toInt() else 0
-            completeCourse(course.id)
+            completeCourse(course.id, kilometrage)
         }
         
         builder.setNegativeButton("Annuler", null)
@@ -366,12 +366,12 @@ class DriverHomeEnhancedActivity : AppCompatActivity() {
         }
     }
     
-    private fun completeCourse(courseId: Int) {
+    private fun completeCourse(courseId: Int, kilometrage: Int) {
         val token = sessionManager.authToken ?: return
         
         lifecycleScope.launch {
             try {
-                val response = apiService.completeCourse("Bearer $token", courseId)
+                val response = apiService.completeCourse("Bearer $token", courseId, kilometrage)
                 
                 if (response.isSuccessful) {
                     Toast.makeText(this@DriverHomeEnhancedActivity, "Course terminée!", Toast.LENGTH_SHORT).show()
