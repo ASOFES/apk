@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TOTO</string>
+    <string name="login">Connexion</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="login_error">Erreur de connexion</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="navigation_drawer_open">Ouvrir le menu de navigation</string>
+    <string name="navigation_drawer_close">Fermer le menu de navigation</string>
+</resources>

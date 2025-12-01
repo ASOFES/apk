@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TOTO</string>
+    <string name="login_title">Connexion Chauffeur</string>
+    <string name="username_hint">Nom d\'utilisateur</string>
+    <string name="password_hint">Mot de passe</string>
+    <string name="login_button">Se connecter</string>
+    <string name="dashboard_title">Tableau de bord Chauffeur</string>
+    <string name="assigned_course">Course assignée</string>
+    <string name="course_history">Historique des courses</string>
+    <string name="error_network">Erreur de connexion réseau</string>
+    <string name="error_server">Erreur serveur</string>
+    <string name="error_credentials">Identifiants incorrects</string>
+</resources>
