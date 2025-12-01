@@ -30,16 +30,28 @@ jobs:
       
     - name: Build Debug APK
       run: |
-        ./gradlew assembleDebug --stacktrace 2>&1 | tee build.log || true
-        echo "=== LAST 100 LINES OF BUILD LOG ==="
-        tail -100 build.log
-        echo "=== ERRORS ==="
-        grep -i "error:" build.log || echo "No explicit errors found"
-        # Check if APK was created
+        ./gradlew assembleDebug --stacktrace 2>&1 | tee build.log
+      continue-on-error: true
+      
+    - name: Show compilation errors
+      if: always()
+      run: |
+        echo "=== KOTLIN COMPILATION ERRORS ==="
+        grep -A 5 "e:" build.log || echo "No Kotlin errors found"
+        echo ""
+        echo "=== ALL ERRORS ==="
+        grep -i "error" build.log | head -50 || echo "No errors found"
+        echo ""
+        echo "=== WARNINGS THAT MIGHT BE ERRORS ==="
+        grep -i "unresolved\|cannot find\|not found" build.log | head -20 || echo "None"
+        
+    - name: Check APK exists
+      run: |
         if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
           echo "✅ APK created successfully!"
         else
           echo "❌ APK was NOT created. Build failed."
+          cat build.log | grep -E "^e:|error:|Error:" | head -30
           exit 1
         fi
       
