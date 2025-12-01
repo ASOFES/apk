@@ -41,7 +41,7 @@ class DriverHomeActivity : AppCompatActivity() {
         userId = intent.getIntExtra("USER_ID", -1)
         
         // Initialiser Retrofit
-        apiService = com.example.gestionvehicules.data.api.RetrofitClient.getInstance().create(ApiService::class.java)
+        apiService = RetrofitClient.getApiService(this)
         
         setupUI()
     }
@@ -89,8 +89,12 @@ class DriverHomeActivity : AppCompatActivity() {
     private fun loadCourseHistory() {
         binding.progressBar.visibility = android.view.View.VISIBLE
         
-        // Utiliser l'API driver/course-history/
-        val driverApiService = com.example.gestionvehicules.data.api.RetrofitClient.getInstance().create(DriverApiService::class.java)
+        // Créer une instance de l'API pour l'historique
+        val retrofit = retrofit2.Retrofit.Builder()
+            .baseUrl(com.example.gestionvehicules.data.api.ApiUrlManager(this).getCurrentBaseUrl())
+            .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+            .build()
+        val driverApiService = retrofit.create(DriverApiService::class.java)
         
         driverApiService.getCourseHistory().enqueue(object : Callback<DriverCourseResponse> {
             override fun onResponse(call: Call<DriverCourseResponse>, response: Response<DriverCourseResponse>) {

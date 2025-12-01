@@ -295,7 +295,7 @@ class DriverHomeEnhancedActivity : AppCompatActivity() {
         
         val input = android.widget.EditText(this)
         input.inputType = android.text.InputType.TYPE_CLASS_NUMBER
-        input.hint = "Kilométrage (ex: ${course.kilometrage ?: 0})"
+        input.hint = "Kilométrage (ex: ${course.distance_parcourue ?: 0})"
         if (course.distance_parcourue != null && course.distance_parcourue > 0) {
              input.setText(course.distance_parcourue.toString())
         }
@@ -328,7 +328,7 @@ class DriverHomeEnhancedActivity : AppCompatActivity() {
         
         val input = android.widget.EditText(this)
         input.inputType = android.text.InputType.TYPE_CLASS_NUMBER
-        input.hint = "Kilométrage (ex: ${(course.kilometrage ?: 0) + 10})"
+        input.hint = "Kilométrage (ex: ${(course.distance_parcourue ?: 0) + 10})"
         if (course.distance_parcourue != null && course.distance_parcourue > 0) {
              // Si on a déjà une valeur (ce qui ne devrait pas arriver pour une fin, mais bon)
         }
@@ -339,7 +339,7 @@ class DriverHomeEnhancedActivity : AppCompatActivity() {
         builder.setPositiveButton("Terminer") { _, _ ->
             val kmText = input.text.toString()
             val kilometrage = if (kmText.isNotEmpty()) kmText.toInt() else 0
-            completeCourse(course.id, kilometrage)
+            completeCourse(course.id)
         }
         
         builder.setNegativeButton("Annuler", null)

@@ -31,48 +31,36 @@ class CourseHistoryAdapter : ListAdapter<Course, CourseHistoryAdapter.CourseView
         
         fun bind(course: Course) {
             binding.apply {
-                // Statut
-                textViewStatus.text = "Statut: ${course.statut}"
-                
-                // Trajets
-                textViewFrom.text = "De: ${course.point_embarquement}"
-                textViewTo.text = "Vers: ${course.destination}"
-                
-                // Motif
-                textViewMotif.text = "Motif: ${course.motif}"
+                // Statut (utilise textViewStatut du XML)
+                textViewStatut.text = course.statut
                 
                 // Demandeur
-                textViewRequester.text = "Demandeur: ${course.demandeur.first_name} ${course.demandeur.last_name}"
+                textViewDemandeur.text = "${course.demandeur.first_name} ${course.demandeur.last_name}"
                 
-                // Véhicule
-                val vehicle = course.vehicule
-                textViewVehicle.text = if (vehicle != null) {
-                    "Véhicule: ${vehicle.getImmatriculationDisplay()} - ${vehicle.getMarqueDisplay()} ${vehicle.getModeleDisplay()}"
-                } else {
-                    "Véhicule: Non assigné"
-                }
+                // Destination (inclut point d'embarquement et destination)
+                textViewDestination.text = "${course.point_embarquement} → ${course.destination}"
                 
                 // Date
                 val date = course.date_arrivee ?: course.date_validation ?: course.date_creation
-                textViewDate.text = "Date: ${date ?: "Non spécifiée"}"
+                textViewDate.text = date ?: "Non spécifiée"
                 
-                // Distance
+                // Kilométrage
                 val distance = course.distance_parcourue
-                textViewDistance.text = if (distance != null) {
-                    "Distance: ${distance} km"
+                textViewKilometrage.text = if (distance != null && distance > 0) {
+                    "$distance km"
                 } else {
-                    "Distance: Non spécifiée"
+                    "-- km"
                 }
                 
                 // Couleur du statut
-                val statusColor = when (course.statut) {
-                    "terminee" -> android.graphics.Color.parseColor("#4CAF50")
-                    "en_cours" -> android.graphics.Color.parseColor("#FF9800")
-                    "validee" -> android.graphics.Color.parseColor("#2196F3")
-                    "annulee" -> android.graphics.Color.parseColor("#F44336")
+                val statusColor = when (course.statut.lowercase()) {
+                    "terminee", "terminée" -> android.graphics.Color.parseColor("#4CAF50")
+                    "en_cours", "en cours" -> android.graphics.Color.parseColor("#FF9800")
+                    "validee", "validée" -> android.graphics.Color.parseColor("#2196F3")
+                    "annulee", "annulée" -> android.graphics.Color.parseColor("#F44336")
                     else -> android.graphics.Color.parseColor("#757575")
                 }
-                textViewStatus.setTextColor(statusColor)
+                textViewStatut.setTextColor(statusColor)
             }
         }
     }

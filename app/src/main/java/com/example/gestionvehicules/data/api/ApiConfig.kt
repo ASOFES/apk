@@ -13,6 +13,10 @@ object ApiConfig {
     
     const val CONNECTION_TIMEOUT = 30L // secondes
     const val READ_TIMEOUT = 30L // secondes
+    const val WRITE_TIMEOUT = 30L // secondes
+    
+    const val HEADER_ACCEPT = "application/json"
+    const val HEADER_CONTENT_TYPE = "application/json"
     
     // Fonction pour obtenir l'URL de base selon la configuration
     fun getBaseUrl(useHttps: Boolean = true, useIp: Boolean = false, usePort: Boolean = true): String {
